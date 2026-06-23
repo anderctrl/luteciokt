@@ -29,8 +29,7 @@ class SkipCommand(private val lavalink: LavaKord) : SlashCommand {
             }
             return
         }
-
-        link.player.stopTrack()
+        GuildQueueManager.playNext(link, guildId.value, kord)
         interaction.respondPublic {
             embed {
                 applyTemplate(
