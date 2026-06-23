@@ -24,12 +24,8 @@ suspend fun main() {
 
     logger.info("Registering ${commands.size} slash commands...")
     commands.forEach { command ->
-        kord.createGuildChatInputCommand(
-            Snowflake(954334832228442132),
-            command.name,
-            command.description,
-            command.builder()
-        )
+
+        kord.createGlobalChatInputCommand( command.name, command.description, command.builder())
     }
 
     kord.on<ChatInputCommandInteractionCreateEvent> {
