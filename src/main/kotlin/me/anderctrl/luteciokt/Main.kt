@@ -13,7 +13,7 @@ suspend fun main() {
 
     val lavalink = kord.lavakord {
     }
-    lavalink.addNode("ws://localhost:2333", "lava")
+    lavalink.addNode("ws://${System.getenv("LAVALINK_URL")}", "lava")
 
     val commands = listOf(
         PlayCommand(lavalink),
