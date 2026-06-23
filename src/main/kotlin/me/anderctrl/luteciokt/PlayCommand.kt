@@ -45,7 +45,11 @@ class PlayCommand(private val lavalink: LavaKord) : SlashCommand {
         val link = lavalink.getLink(guildId)
 
         GuildQueueManager.setChannelId(guildId.value, interaction.channelId)
-        GuildQueueManager.startListening(link, guildId.value, kord)
+
+        if (link.player.playingTrack == null && GuildQueueManager.getQueue(guildId.value).isEmpty()) {
+            GuildQueueManager.registerPlayerEvents(link, guildId.value, kord)
+        }
+
         link.connectAudio(channelId.value)
 
         val search = if (query.startsWith("http")) query else "ytsearch:$query"
@@ -93,7 +97,7 @@ class PlayCommand(private val lavalink: LavaKord) : SlashCommand {
                     ack.respond {
                         embed {
                             title = "❌ No Results"
-                            description = "No matches found for your search query query."
+                            description = "No matches found for your search query."
                             color = Color(0xe74c3c)
                         }
                     }

@@ -16,20 +16,24 @@ class SkipCommand(private val lavalink: LavaKord) : SlashCommand {
         val guildId = interaction.data.guildId.value ?: return
         val link = lavalink.getLink(guildId)
 
-        if (link.player.playingTrack == null) {
+        val queue = GuildQueueManager.getQueue(guildId.value)
+
+        if (link.player.playingTrack == null && queue.isEmpty()) {
             interaction.respondPublic {
                 embed {
                     applyTemplate(
                         interaction = interaction,
                         embedTitle = "❌ Skip Failed",
-                        embedDescription = "There is no song playing right now!",
+                        embedDescription = "There is nothing playing or waiting in the queue!",
                         embedColor = Color(0xe74c3c)
                     )
                 }
             }
             return
         }
-        GuildQueueManager.playNext(link, guildId.value, kord)
+
+        link.player.stopTrack()
+
         interaction.respondPublic {
             embed {
                 applyTemplate(
