@@ -16,6 +16,9 @@ dependencies {
 
     implementation("io.ktor:ktor-client-content-negotiation")
     implementation("io.ktor:ktor-serialization-kotlinx-json")
+    implementation("io.ktor:ktor-server-core:3.5.0")
+    implementation("io.ktor:ktor-server-netty:3.5.0")
+    implementation("io.ktor:ktor-server-html-builder-jvm:3.5.0")
 
     implementation("org.slf4j:slf4j-api:2.0.13")
 
