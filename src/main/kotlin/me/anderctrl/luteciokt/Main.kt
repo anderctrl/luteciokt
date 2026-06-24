@@ -22,7 +22,8 @@ suspend fun main() {
         logger.error("⚠Failed to connect to Lavalink server node. Music features will be unavailable.", e)
     }
 
-    kord.startStatusDashboard(lavalink = lavalink, port = System.getenv("DASHBOARD_PORT").toInt())
+    val dashboardPort = System.getenv("BOT_PORT")?.toIntOrNull() ?: 8000
+    kord.startStatusDashboard(lavalink = lavalink, port = dashboardPort)
 
     val commands = listOf(
         PlayCommand(lavalink),
